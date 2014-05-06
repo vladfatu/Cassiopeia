@@ -25,17 +25,19 @@ public class TTSTest {
 		{
 			System.err.println(q.nextElement());
 		}
+
+		String introductionText = "I am Cassiopeia, meaning she whose words excel.";
 		
 		
 //		Translator translate = Translator.getInstance();
-//		String text = translate.translate("I am programmer", Language.ENGLISH, Language.ROMANIAN);
+//		String text = translate.translate(introductionText, Language.ENGLISH, Language.SPANISH);
 //		System.out.println(text); //Eu sou programador
 		
 		Audio audio = Audio.getInstance();
 		InputStream sound;
 		try
 		{
-			sound = audio.getAudio("I am Cassiopeia, meaning she whose words excel.", Language.ENGLISH);
+			sound = audio.getAudio(introductionText, Language.ENGLISH);
 			
 //			OutputStream out = new BufferedOutputStream(new FileOutputStream(new File("temp.mp3")));  
 //		    byte[] buf = new byte[256];  
