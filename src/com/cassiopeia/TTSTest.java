@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import javazoom.jl.decoder.JavaLayerException;
+import jpl.Query;
 
 import com.gtranslate.Audio;
 import com.gtranslate.Language;
@@ -12,6 +13,20 @@ public class TTSTest {
 	
 	public static void main(String[] args)
 	{
+		
+		Query q;
+		q = new Query("consult('foo.pl')");
+		System.err.println(q.hasSolution());
+		System.out.println();
+		q = new Query("tedge(X, b)");
+		System.err.println(q.hasSolution());
+
+		while (q.hasMoreElements())
+		{
+			System.err.println(q.nextElement());
+		}
+		
+		
 //		Translator translate = Translator.getInstance();
 //		String text = translate.translate("I am programmer", Language.ENGLISH, Language.ROMANIAN);
 //		System.out.println(text); //Eu sou programador
