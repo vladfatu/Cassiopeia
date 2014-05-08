@@ -14,3 +14,8 @@ t_brother(L1, L2, IntermediateNodes) :-
   \+ member(L3, IntermediateNodes),
   (L2=L3 ; t_brother(L3, L2, [L3 | IntermediateNodes])).
 
+
+
+
+brother_list(L) :- findall(X, (r_brother(X, _) ; r_brother(_, X)), L).
+
