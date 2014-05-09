@@ -76,6 +76,7 @@ public class PrologRule {
 
 		if (this.isReflexive)
 		{
+			// ruleId(A, A).
 			builder.append(this.ruleId);
 			builder.append("(");
 			builder.append(StringUtils.printStringArray(StringUtils.getSameCapitalLettersArray(this.numberOfParams)));
@@ -85,6 +86,7 @@ public class PrologRule {
 
 		}
 
+		// ruleId(A, B) :-
 		builder.append(this.ruleId);
 		builder.append("(");
 		builder.append(StringUtils.printStringArray(StringUtils.getCapitalLettersArray(this.numberOfParams)));
@@ -94,6 +96,7 @@ public class PrologRule {
 
 		if (this.isTransitive)
 		{
+			// t_ruleId(A, B).
 			builder.append(PrologConstants.TRANSITIVITY_PREFIX).append(this.ruleId);
 			builder.append("(");
 			builder.append(StringUtils.printStringArray(StringUtils.getCapitalLettersArray(this.numberOfParams)));
@@ -104,10 +107,12 @@ public class PrologRule {
 		{
 			if (this.isSymmetric)
 			{
+				// s_ruleId(A, B).
 				builder.append(PrologConstants.SYMMETRY_PREFIX);
 
 			} else
 			{
+				// f_ruleId(A, B).
 				builder.append(PrologConstants.FACT_PREFIX);
 			}
 			builder.append(this.ruleId);
@@ -120,6 +125,7 @@ public class PrologRule {
 		
 		if (this.isSymmetric)
 		{
+			// s_ruleId(A, B) :- ruleId(A, B).
 			builder.append(PrologConstants.SYMMETRY_PREFIX);
 			builder.append(this.ruleId);
 			builder.append("(");
@@ -132,6 +138,25 @@ public class PrologRule {
 			builder.append("(");
 			builder.append(StringUtils.printStringArray(StringUtils.getCapitalLettersArray(this.numberOfParams)));
 			builder.append(")");
+			
+			builder.append(".\n");
+			
+			// s_ruleId(A, B) :- ruleId(B, A).
+			//TODO
+			builder.append(PrologConstants.SYMMETRY_PREFIX);
+			builder.append(this.ruleId);
+			builder.append("(");
+			builder.append(StringUtils.printStringArray(StringUtils.getCapitalLettersArray(this.numberOfParams)));
+			builder.append(")");
+			
+			builder.append(" :- ");
+			
+			builder.append(this.ruleId);
+			builder.append("(");
+			builder.append(StringUtils.printStringArray(StringUtils.getCapitalLettersArray(this.numberOfParams)));
+			builder.append(")");
+			
+			builder.append(".\n");
 
 		}
 		
