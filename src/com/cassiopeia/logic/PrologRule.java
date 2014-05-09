@@ -89,7 +89,8 @@ public class PrologRule {
 		// ruleId(A, B) :-
 		builder.append(this.ruleId);
 		builder.append("(");
-		builder.append(StringUtils.printStringArray(StringUtils.getCapitalLettersArray(this.numberOfParams)));
+		String[] capitalLettersArray = StringUtils.getCapitalLettersArray(this.numberOfParams);
+		builder.append(StringUtils.printStringArray(capitalLettersArray));
 		builder.append(")");
 
 		builder.append(" :- ");
@@ -99,7 +100,7 @@ public class PrologRule {
 			// t_ruleId(A, B).
 			builder.append(PrologConstants.TRANSITIVITY_PREFIX).append(this.ruleId);
 			builder.append("(");
-			builder.append(StringUtils.printStringArray(StringUtils.getCapitalLettersArray(this.numberOfParams)));
+			builder.append(StringUtils.printStringArray(capitalLettersArray));
 			builder.append(")");
 
 			builder.append(".\n\n");
@@ -117,50 +118,55 @@ public class PrologRule {
 			}
 			builder.append(this.ruleId);
 			builder.append("(");
-			builder.append(StringUtils.printStringArray(StringUtils.getCapitalLettersArray(this.numberOfParams)));
+			builder.append(StringUtils.printStringArray(capitalLettersArray));
 			builder.append(")");
 
 			builder.append(".\n\n");
 		}
-		
-		if (this.isSymmetric)
-		{
-			// s_ruleId(A, B) :- ruleId(A, B).
-			builder.append(PrologConstants.SYMMETRY_PREFIX);
-			builder.append(this.ruleId);
-			builder.append("(");
-			builder.append(StringUtils.printStringArray(StringUtils.getCapitalLettersArray(this.numberOfParams)));
-			builder.append(")");
-			
-			builder.append(" :- ");
-			
-			builder.append(this.ruleId);
-			builder.append("(");
-			builder.append(StringUtils.printStringArray(StringUtils.getCapitalLettersArray(this.numberOfParams)));
-			builder.append(")");
-			
-			builder.append(".\n");
-			
-			// s_ruleId(A, B) :- ruleId(B, A).
-			//TODO
-			builder.append(PrologConstants.SYMMETRY_PREFIX);
-			builder.append(this.ruleId);
-			builder.append("(");
-			builder.append(StringUtils.printStringArray(StringUtils.getCapitalLettersArray(this.numberOfParams)));
-			builder.append(")");
-			
-			builder.append(" :- ");
-			
-			builder.append(this.ruleId);
-			builder.append("(");
-			builder.append(StringUtils.printStringArray(StringUtils.getCapitalLettersArray(this.numberOfParams)));
-			builder.append(")");
-			
-			builder.append(".\n");
 
+		if (this.numberOfParams == 2)
+		{
+			if (this.isSymmetric)
+			{
+				// s_ruleId(A, B) :- ruleId(A, B).
+				builder.append(PrologConstants.SYMMETRY_PREFIX);
+				builder.append(this.ruleId);
+				builder.append("(");
+				builder.append(StringUtils.printStringArray(capitalLettersArray));
+				builder.append(")");
+
+				builder.append(" :- ");
+
+				builder.append(this.ruleId);
+				builder.append("(");
+				builder.append(StringUtils.printStringArray(capitalLettersArray));
+				builder.append(")");
+
+				builder.append(".\n");
+
+				// s_ruleId(A, B) :- ruleId(B, A).
+				String[] tempArray = new String[2];
+				tempArray[0] = capitalLettersArray[1];
+				tempArray[1] = capitalLettersArray[0];
+				// TODO
+				builder.append(PrologConstants.SYMMETRY_PREFIX);
+				builder.append(this.ruleId);
+				builder.append("(");
+				builder.append(StringUtils.printStringArray(capitalLettersArray));
+				builder.append(")");
+
+				builder.append(" :- ");
+
+				builder.append(this.ruleId);
+				builder.append("(");
+				builder.append(StringUtils.printStringArray(tempArray));
+				builder.append(")");
+
+				builder.append(".\n");
+
+			}
 		}
-		
-		
+
 		return builder.toString();
 	}
 
