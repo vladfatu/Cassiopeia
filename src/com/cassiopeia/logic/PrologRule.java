@@ -162,9 +162,51 @@ public class PrologRule {
 				builder.append(StringUtils.printStringArray(tempArray));
 				builder.append(")");
 
-				builder.append(".\n");
+				builder.append(".\n\n");
 
 			}
+			if (this.isTransitive)
+			{
+				// t_ruleId(A, B) :- 
+				builder.append(PrologConstants.TRANSITIVITY_PREFIX);
+				builder.append(this.ruleId);
+				builder.append("(");
+				builder.append(StringUtils.printStringArray(capitalLettersArray));
+				builder.append(", IntermediateNodes");
+				builder.append(")");
+
+				builder.append(" :- ");
+				builder.append("\n");
+				
+				if (this.isSymmetric)
+				{
+					// s_ruleId(A, B),
+					builder.append("\t");
+					builder.append(PrologConstants.SYMMETRY_PREFIX);
+					builder.append(this.ruleId);
+					builder.append("(A, C)");
+	
+					builder.append(",\n");
+					
+					// \+ member(C, IntermediateNodes),
+					builder.append("\t");
+					builder.append("\\+ member(C, IntermediateNodes)");
+	
+					builder.append(",\n");
+					
+					// (B=C ; t_rule(C, B, [C | IntermediateNodes])).
+					builder.append("\t");
+					builder.append("(B=C ; t_rule(C, B, [C | IntermediateNodes]))");
+	
+					builder.append(".\n");
+				}
+				
+				else
+				{
+					//TODO
+				}
+			}
+			
 		}
 
 		return builder.toString();

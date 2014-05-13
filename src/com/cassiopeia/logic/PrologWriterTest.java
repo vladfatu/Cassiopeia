@@ -16,6 +16,7 @@ public class PrologWriterTest {
 		PrologRule rule = new PrologRule("ruleId", 2);
 		rule.setReflexive(true);
 		rule.setSymmetric(true);
+		rule.setTransitive(true);
 		System.out.println(rule.toString());
 	}
 
