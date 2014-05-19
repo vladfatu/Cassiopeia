@@ -70,7 +70,10 @@ public class TTSTest {
 				// String text = translate.translate(introductionText, Language.ENGLISH, Language.SPANISH);
 				// System.out.println(text); //Eu sou programador
 				System.out.println(reply);
-				playSound(reply);
+				if (reply.length() < 100)
+				{
+					playSound(reply);
+				}
 			}
 			else
 			{
