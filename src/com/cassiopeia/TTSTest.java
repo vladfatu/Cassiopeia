@@ -56,8 +56,14 @@ public class TTSTest {
 				line = line.replace("what is the definition of ", "");
 				line = line.replace("?", "");
 				reply = wordNetDefinition(line);
-				reply = reply.split(";")[0];
-				System.out.println(reply.length());
+				if (reply != null)
+				{
+					if (reply.contains(";"))
+						{
+							reply = reply.split(";")[0];
+						}
+					System.out.println(reply.length());
+				}
 			}
 			else
 			{
